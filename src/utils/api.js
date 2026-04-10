@@ -1,8 +1,10 @@
 import axios from 'axios';
 
-// Will automatically use VITE_API_URL if it exists (in production/Vercel), otherwise falls back to localhost
+const userUrl = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const baseURL = userUrl.endsWith('/api') ? userUrl : `${userUrl.replace(/\/$/, '')}/api`;
+
 const api = axios.create({
-    baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
+  baseURL
 });
 
 api.interceptors.request.use((config) => {
