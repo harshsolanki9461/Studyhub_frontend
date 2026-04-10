@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import api from '../utils/api';
+import api, { backendURL } from '../utils/api';
 import { AuthContext } from '../context/AuthContext';
 import { Search, Download, Trash2, Edit, Bookmark } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -39,7 +39,8 @@ const Materials = () => {
   const handleDownload = async (m) => {
     try {
       await api.post(`/materials/view/${m._id}`);
-      window.open(`http://localhost:5000${m.url}`, '_blank');
+      const finalUrl = m.url.startsWith('http') ? m.url : `${backendURL}${m.url}`;
+      window.open(finalUrl, '_blank');
       fetchMaterials();
     } catch (err) {}
   };

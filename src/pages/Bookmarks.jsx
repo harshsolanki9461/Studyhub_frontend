@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import api from '../utils/api';
+import api, { backendURL } from '../utils/api';
 import { Link } from 'react-router-dom';
 import { Bookmark, PlaySquare, FileText, LayoutDashboard } from 'lucide-react';
 
@@ -67,7 +67,7 @@ const Bookmarks = () => {
                 ) : m.type === 'mcq' ? (
                   <Link to={`/quiz/${m._id}`} className="btn btn-sm btn-ghost" style={{width:'100%', textAlign:'center'}}>Take Quiz</Link>
                 ) : (
-                  <a href={`http://localhost:5000${m.url}`} target="_blank" rel="noreferrer" className="btn btn-sm btn-ghost" style={{width:'100%', textAlign:'center'}}>View PDF</a>
+                  <a href={m.url?.startsWith('http') ? m.url : `${backendURL}${m.url}`} target="_blank" rel="noreferrer" className="btn btn-sm btn-ghost" style={{width:'100%', textAlign:'center'}}>View PDF</a>
                 )}
               </div>
             </div>
