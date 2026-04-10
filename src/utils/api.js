@@ -1,7 +1,8 @@
 import axios from 'axios';
 
+// Will automatically use VITE_API_URL if it exists (in production/Vercel), otherwise falls back to localhost
 const api = axios.create({
-    baseURL: 'http://localhost:5000/api', // Backend endpoint
+    baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
 });
 
 api.interceptors.request.use((config) => {
